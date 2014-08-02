@@ -3,7 +3,7 @@ require "./gpib.rb"
 #aaa test 1
 
 #aaa test 2
-
+#aaa test 3
 class ModelController < ApplicationController
 	before_filter :find_model
 
