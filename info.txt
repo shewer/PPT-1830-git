@@ -1,0 +1,53 @@
+8/1  
+Rs485io  READ  麯數及 ret_str 有問題 造成濕法 return 讀讀估
+
+
+
+
+ioport.rb  層別 tcpip  供  gpib & rs485 的基本 tcpip 傳輸 及 讀賽功能 提供tcpip 底層訊息
+class Ioport    ip,port
+write 預設文字模式
+read 預設 文字模式
+
+
+oper_server(連結server 端口)
+
+
+
+gpib.rb  Gpib < Ioport
+續承 Ioport class 
+write & read 已定義完無須再定義
+需要增加 gpib 的常用工具
+因 gpib 的指令結性 供要設置目前設備 addr ，當然容易的 每次指令都要下 addr ，如此可避免 多工時的侌令錯亂
+暫不處理此問題
+gpib 系統內部變數   addr mode timeout  可供所有 設備取掛載 gpib 目前通訊設置狀況
+ 
+
+
+
+gpib 是磏體層 提供 gpib 的指伶釛能
+
+ppt_1830是設備層 需要道過 gpib 轉送到正確的指令
+本身必須處理自身的指令的就再經由 gpib物件傳送
+
+
+ppt_1830 device class 
+設定 ppt 通道  電壓 電流   讀取 測量電壓竜流   讀萬 設定 電壓 電流
+
+
+Ioboart88
+relay 輸出控制 ，輸入擬取 
+
+
+
+rs485io.rb Rs485_IO < Ioport
+因為此為 modbus 格式所以需要重載  write & read   8byte
+且需要處理 chack sum 的資料再 傳送至ioport 處理
+此class 只處理 modbus 資訊
+
+
+此通通訊層 不需要控制 addr 因為已在 傳送資料內
+
+
+gpib_server_sim 模擬gpib 回覆的class 以便在沒有設備時可以測試主程式系統
+server_test 開啟 gpib sim 的 server 
