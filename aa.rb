@@ -4,6 +4,9 @@ require "./gpib.rb"
 
 #aaa test 2
 #aaa test 3
+
+# test 4
+
 class ModelController < ApplicationController
 	before_filter :find_model
 
