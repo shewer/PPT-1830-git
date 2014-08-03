@@ -18,17 +18,12 @@ class Ioboard88
   def relay_set(ti=:T0,ci=:C0)
     
     io_status= relay_set_byte( output_chk(ti,ci) )
-    puts io_status
+    # puts io_status
     @io_status=  io_status #io_status.size==8 ? io_status : nil
   end
   
   
-  begin
-    
-  rescue Exception => e
-    
-  end
-  
+
   def relay_set_byte(relay_set_output)
     begin
           relay_set_output %= 256

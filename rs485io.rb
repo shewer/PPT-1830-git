@@ -33,15 +33,16 @@ class Rs485_IO < Ioport
   # 增加 擁取  remote 的return 的信息 暫時取消 測試系統穩定剖
   def read()
     str=""
-    loop  { 
-       str=read_modbus()
-       break if str[2]!= 0x61.chr
-       @remote_status.push str
+    begin
+      str=read_modbus()
+      raise "remote controller input"  if str[2]== 0x61.chr
+      return str
+    rescue  # RunTimeError => e
+      @remote_status.push str
+      retry
+    end
     
-    }    
-        
-    str.size == 8 ? (@ret_str=str) : nil
-    
+   
   end
   
   
@@ -49,7 +50,7 @@ class Rs485_IO < Ioport
     str=""
     begin
       Timeout.timeout(1) do
-        loop {
+        
           if (head = @server.getc)== "\x22"
             str << head
             7.times {
@@ -57,15 +58,16 @@ class Rs485_IO < Ioport
             }
             return str
           end  # end if 
-          }
       end
-        
+
     rescue Timeout::Error
        return Modbus_Error_Code
       
     end
     
   end
+  
+  
   def add_chksum(stri)
     if stri.size==8
         str=stri.clone
@@ -82,9 +84,6 @@ class Rs485_IO < Ioport
   def chk_chksum(stri)
     stri== add_chksum(stri)
   end
-  
-  
-  
   
 
   
