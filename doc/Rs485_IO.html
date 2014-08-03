@@ -61,7 +61,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="Object.html">Object</a>
+  <p class="link"><a href="Ioport.html">Ioport</a>
   
 </div>
 
@@ -73,11 +73,11 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-new">::new</a>
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
     
     <li ><a href="#method-i-add_chksum">#add_chksum</a>
     
-    <li ><a href="#method-i-open_server">#open_server</a>
+    <li ><a href="#method-i-chk_chksum">#chk_chksum</a>
     
     <li ><a href="#method-i-read">#read</a>
     
@@ -113,6 +113,27 @@
     
 
     
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-remote_status" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">remote_status</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
 
     
      <section id="public-class-5Buntitled-5D-method-details" class="method-section">
@@ -137,15 +158,19 @@
           
           
           
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Ioport.html#method-c-new">Ioport.new</a>
+            </div>
+          
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File rs485io.rb, line 5</span>
+            <pre><span class="ruby-comment"># File rs485io.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">ip</span>,<span class="ruby-identifier">port</span>)
-  <span class="ruby-ivar">@ip</span>=<span class="ruby-identifier">ip</span>
-  <span class="ruby-ivar">@port</span>=<span class="ruby-identifier">port</span>
-  <span class="ruby-ivar">@server</span>=<span class="ruby-identifier">open_server</span>
-  
+  <span class="ruby-keyword">super</span> <span class="ruby-identifier">ip</span>,<span class="ruby-identifier">port</span>
+  <span class="ruby-ivar">@remote_status</span>=<span class="ruby-constant">Queue</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@return_status</span>=<span class="ruby-constant">Queue</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -184,7 +209,7 @@
 
           
           <div class="method-source-code" id="add_chksum-source">
-            <pre><span class="ruby-comment"># File rs485io.rb, line 68</span>
+            <pre><span class="ruby-comment"># File rs485io.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_chksum</span>(<span class="ruby-identifier">stri</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">stri</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">==</span><span class="ruby-value">8</span>
       <span class="ruby-identifier">str</span>=<span class="ruby-identifier">stri</span>.<span class="ruby-identifier">clone</span>
@@ -207,11 +232,11 @@
       </div>
 
     
-      <div id="method-i-open_server" class="method-detail ">
+      <div id="method-i-chk_chksum" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">open_server</span><span
-            class="method-args">()</span>
+          <span class="method-name">chk_chksum</span><span
+            class="method-args">(stri)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -225,20 +250,10 @@
           
 
           
-          <div class="method-source-code" id="open_server-source">
-            <pre><span class="ruby-comment"># File rs485io.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_server</span>()
-  
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-value">5</span>) <span class="ruby-keyword">do</span>
-       <span class="ruby-keyword">return</span> <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@ip</span>,<span class="ruby-ivar">@port</span>)
-    <span class="ruby-keyword">end</span>
-    
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> 
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;can&#39;t connect server&quot;</span>
-    
-  <span class="ruby-keyword">end</span>
-  
+          <div class="method-source-code" id="chk_chksum-source">
+            <pre><span class="ruby-comment"># File rs485io.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">chk_chksum</span>(<span class="ruby-identifier">stri</span>)
+  <span class="ruby-identifier">stri</span><span class="ruby-operator">==</span> <span class="ruby-identifier">add_chksum</span>(<span class="ruby-identifier">stri</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -263,16 +278,26 @@
 
         <div class="method-description">
           
-          
+          <p>增加 擁取  remote 的return 的信息 暫時取消 測試系統穩定剖</p>
           
           
 
           
           <div class="method-source-code" id="read-source">
             <pre><span class="ruby-comment"># File rs485io.rb, line 41</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read</span>()
-  <span class="ruby-identifier">str</span>=<span class="ruby-identifier">read_modbus</span>()
-  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">8</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">str</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>    
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read</span>()  <span class="ruby-comment"># return ModBus_Package object</span>
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">mod_package</span>=<span class="ruby-constant">ModBus_Package</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">read_modbus</span>()
+    
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;remote controller input&quot;</span>  <span class="ruby-keyword">if</span> <span class="ruby-identifier">mod_package</span>.<span class="ruby-identifier">cmd</span> <span class="ruby-operator">==</span> <span class="ruby-value">0x61</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">mod_package</span>
+  <span class="ruby-keyword">rescue</span>  <span class="ruby-comment"># RunTimeError =&gt; e</span>
+    <span class="ruby-ivar">@remote_status</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">mod_package</span>  <span class="ruby-comment"># if remote command  Push to remote buffer &amp; retry read agian</span>
+    <span class="ruby-keyword">retry</span>
+  <span class="ruby-keyword">end</span>
+  
+ 
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -303,12 +328,12 @@
 
           
           <div class="method-source-code" id="read_modbus-source">
-            <pre><span class="ruby-comment"># File rs485io.rb, line 47</span>
+            <pre><span class="ruby-comment"># File rs485io.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">read_modbus</span>()
   <span class="ruby-identifier">str</span>=<span class="ruby-string">&quot;&quot;</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-value">1</span>) <span class="ruby-keyword">do</span>
-      <span class="ruby-identifier">loop</span> {
+      
         <span class="ruby-keyword">if</span> (<span class="ruby-identifier">head</span> = <span class="ruby-ivar">@server</span>.<span class="ruby-identifier">getc</span>)<span class="ruby-operator">==</span> <span class="ruby-string">&quot;\x22&quot;</span>
           <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">head</span>
           <span class="ruby-value">7</span>.<span class="ruby-identifier">times</span> {
@@ -316,11 +341,10 @@
           }
           <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
         <span class="ruby-keyword">end</span>  <span class="ruby-comment"># end if </span>
-        }
     <span class="ruby-keyword">end</span>
-      
+
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>
-     <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+     <span class="ruby-keyword">return</span> <span class="ruby-constant">Modbus_Error_Code</span>
     
   <span class="ruby-keyword">end</span>
   
@@ -339,7 +363,7 @@
         
         <div class="method-heading">
           <span class="method-name">write</span><span
-            class="method-args">(stri)</span>
+            class="method-args">(stri,ret=true,timeout=2)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -348,22 +372,28 @@
 
         <div class="method-description">
           
-          
+          <p>rewrite  use thread</p>
           
           
 
           
           <div class="method-source-code" id="write-source">
-            <pre><span class="ruby-comment"># File rs485io.rb, line 26</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">stri</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">stri</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-value">8</span>
-  <span class="ruby-comment">#str= &quot;\x55&quot; + stri + &quot;\x00&quot;</span>
+            <pre><span class="ruby-comment"># File rs485io.rb, line 16</span>
+ <span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">stri</span>,<span class="ruby-identifier">ret</span>=<span class="ruby-keyword">true</span>,<span class="ruby-identifier">timeout</span>=<span class="ruby-value">2</span>)
+   <span class="ruby-comment"># return 1 if stri.size != 8</span>
+   <span class="ruby-comment">#str= &quot;\x55&quot; + stri + &quot;\x00&quot;  </span>
+   <span class="ruby-identifier">mod_package</span>=   <span class="ruby-identifier">stri</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">ModBus_Package</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">stri</span>)  <span class="ruby-operator">:</span> <span class="ruby-identifier">stri</span>
   
-  <span class="ruby-identifier">str</span>=<span class="ruby-identifier">add_chksum</span>(<span class="ruby-identifier">stri</span>)
- <span class="ruby-comment"># puts &quot;chk sum :&quot; + str</span>
-  <span class="ruby-ivar">@server</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">str</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">read</span>()
-<span class="ruby-keyword">end</span></pre>
+   
+   <span class="ruby-comment"># str=add_chksum(stri)</span>
+<span class="ruby-comment">#  puts &quot;chk sum :&quot; + str</span>
+   <span class="ruby-identifier">write_modbus</span>(<span class="ruby-identifier">mod_package</span>.<span class="ruby-identifier">to_s</span>)
+   <span class="ruby-comment"># rt_str=@ret_str</span>
+   <span class="ruby-comment">#    @ret_str=nil</span>
+   <span class="ruby-comment">#       </span>
+   <span class="ruby-identifier">read</span>()
+   
+ <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -393,7 +423,7 @@
 
           
           <div class="method-source-code" id="write_modbus-source">
-            <pre><span class="ruby-comment"># File rs485io.rb, line 38</span>
+            <pre><span class="ruby-comment"># File rs485io.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">write_modbus</span>(<span class="ruby-identifier">str</span>)
   <span class="ruby-ivar">@server</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">str</span>)
 <span class="ruby-keyword">end</span></pre>

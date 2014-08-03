@@ -73,9 +73,11 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-getmodbustest">#getmodbustest</a>
+    <li ><a href="#method-i-def">#def</a>
     
-    <li ><a href="#method-i-modbustest">#modbustest</a>
+    <li ><a href="#method-i-gchksum">#gchksum</a>
+    
+    <li ><a href="#method-i-method_missing">#method_missing</a>
     
     <li ><a href="#method-i-tt">#tt</a>
     
@@ -103,6 +105,93 @@
     
 
     
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="BIT_OFF">BIT_OFF
+        
+        <dd>
+        
+      
+        <dt id="BIT_ON">BIT_ON
+        
+        <dd>
+        
+      
+        <dt id="DELAY_OFF">DELAY_OFF
+        
+        <dd>
+        
+      
+        <dt id="DELAY_ON">DELAY_ON
+        
+        <dd>
+        
+      
+        <dt id="GET_STATUS">GET_STATUS
+        
+        <dd>
+        
+      
+        <dt id="GPIB_PORT">GPIB_PORT
+        
+        <dd>
+        
+      
+        <dt id="GPIB_SERVER">GPIB_SERVER
+        
+        <dd>
+        
+      
+        <dt id="HEAD_CODE">HEAD_CODE
+        
+        <dd><p>class <a href="ModBus_Package.html">ModBus_Package</a> 處理 modbus 封包的資料 及
+相驚變數 addr / cmd/ data</p>
+
+<pre>最後一樣 chksum 將由此物件處理</pre>
+        
+      
+        <dt id="HEAD_CODEtoSym">HEAD_CODEtoSym
+        
+        <dd>
+        
+      
+        <dt id="IO_PORT">IO_PORT
+        
+        <dd>
+        
+      
+        <dt id="IO_SERVER">IO_SERVER
+        
+        <dd>
+        
+      
+        <dt id="MOD_HEAD">MOD_HEAD
+        
+        <dd>
+        
+      
+        <dt id="Modbus_Error_Code">Modbus_Error_Code
+        
+        <dd>
+        
+      
+        <dt id="SET_RELAY">SET_RELAY
+        
+        <dd>
+        
+      
+        <dt id="T1">T1
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
 
     
 
@@ -113,11 +202,11 @@
        </header>
 
     
-      <div id="method-i-getmodbustest" class="method-detail ">
+      <div id="method-i-def" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">getmodbustest</span><span
-            class="method-args">(server)</span>
+          <span class="method-name">def</span><span
+            class="method-args">(aeoeu(aa))</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -131,28 +220,15 @@
           
 
           
-          <div class="method-source-code" id="getmodbustest-source">
-            <pre><span class="ruby-comment"># File testt.rb, line 16</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">getmodbustest</span>(<span class="ruby-identifier">server</span>)
-  <span class="ruby-keyword">begin</span>
-      <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-value">2</span>)
-         <span class="ruby-identifier">loop</span>{ 
-           <span class="ruby-keyword">if</span> <span class="ruby-identifier">server</span>.<span class="ruby-identifier">getc</span><span class="ruby-operator">==</span><span class="ruby-string">&quot;\22&quot;</span>
-               <span class="ruby-identifier">a</span>=[]
-              <span class="ruby-value">7</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">a</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">server</span>.<span class="ruby-identifier">getc</span>}
-           <span class="ruby-keyword">end</span>
-         }
-           
-           
-         
-         
-         
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>
-     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;END&quot;</span>
-   <span class="ruby-keyword">end</span>
-   
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">a</span>
-  
+          <div class="method-source-code" id="def-source">
+            <pre><span class="ruby-comment"># File aa.rb, line 36</span>
+<span class="ruby-keyword">def</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">aeoeu</span>(<span class="ruby-identifier">aa</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">condition</span>
+                
+        <span class="ruby-keyword">else</span>
+                
+        <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -164,11 +240,11 @@
       </div>
 
     
-      <div id="method-i-modbustest" class="method-detail ">
+      <div id="method-i-gchksum" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">modbustest</span><span
-            class="method-args">(hexstr)</span>
+          <span class="method-name">gchksum</span><span
+            class="method-args">(str)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -182,21 +258,48 @@
           
 
           
-          <div class="method-source-code" id="modbustest-source">
-            <pre><span class="ruby-comment"># File testt.rb, line 1</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">modbustest</span>(<span class="ruby-identifier">hexstr</span>)
-  <span class="ruby-identifier">a</span>=<span class="ruby-identifier">hexstr</span>.<span class="ruby-identifier">split</span> 
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">==</span><span class="ruby-value">7</span>
-    <span class="ruby-identifier">bin</span>=<span class="ruby-string">&quot;&quot;</span>
-    <span class="ruby-identifier">chksum</span>=<span class="ruby-value">0</span>
-    <span class="ruby-identifier">a</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">byt</span>=<span class="ruby-identifier">x</span>.<span class="ruby-identifier">hex</span>
-      <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">byt</span>.<span class="ruby-identifier">chr</span>
-      <span class="ruby-identifier">chksum</span>  <span class="ruby-operator">+=</span> <span class="ruby-identifier">byt</span> }
-      <span class="ruby-identifier">chksum</span> <span class="ruby-operator">%</span> <span class="ruby-value">256</span>
-      <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">chksum</span> <span class="ruby-operator">%</span> <span class="ruby-value">256</span>).<span class="ruby-identifier">chr</span> 
-   <span class="ruby-keyword">end</span>
-   <span class="ruby-keyword">return</span> <span class="ruby-identifier">bin</span> 
+          <div class="method-source-code" id="gchksum-source">
+            <pre><span class="ruby-comment"># File test_modbus.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gchksum</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-identifier">ar</span>=<span class="ruby-identifier">str</span>.<span class="ruby-identifier">bytes</span>
+  <span class="ruby-identifier">sum</span>=<span class="ruby-value">0</span>
+  <span class="ruby-identifier">s</span>=<span class="ruby-identifier">ar</span>.<span class="ruby-identifier">pop</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">x</span>}
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">sum</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;C*&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(meth, *args, &blk)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File aa.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">meth</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+        
 <span class="ruby-keyword">end</span></pre>
           </div>
           

@@ -61,7 +61,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="Object.html">Object</a>
+  <p class="link"><a href="Ioport.html">Ioport</a>
   
 </div>
 
@@ -73,25 +73,15 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-new">::new</a>
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-get_addr">#get_addr</a>
+    <li ><a href="#method-i-addr-3D">#addr=</a>
     
-    <li ><a href="#method-i-get_mode">#get_mode</a>
+    <li ><a href="#method-i-mode-3D">#mode=</a>
     
-    <li ><a href="#method-i-get_timeout">#get_timeout</a>
+    <li ><a href="#method-i-read_init_volue">#read_init_volue</a>
     
-    <li ><a href="#method-i-open_server">#open_server</a>
-    
-    <li ><a href="#method-i-read">#read</a>
-    
-    <li ><a href="#method-i-set_addr">#set_addr</a>
-    
-    <li ><a href="#method-i-set_mode">#set_mode</a>
-    
-    <li ><a href="#method-i-set_timeout">#set_timeout</a>
-    
-    <li ><a href="#method-i-write">#write</a>
+    <li ><a href="#method-i-timeout-3D">#timeout=</a>
     
   </ul>
 </div>
@@ -119,6 +109,53 @@
     
 
     
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-addr" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">addr</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-mode" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">mode</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-timeout" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">timeout</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
 
     
      <section id="public-class-5Buntitled-5D-method-details" class="method-section">
@@ -143,17 +180,21 @@
           
           
           
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Ioport.html#method-c-new">Ioport.new</a>
+            </div>
+          
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 6</span>
+            <pre><span class="ruby-comment"># File gpib.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">ip</span>,<span class="ruby-identifier">port</span>)
-  <span class="ruby-ivar">@ip</span>=<span class="ruby-identifier">ip</span>
-  <span class="ruby-ivar">@port</span>=<span class="ruby-identifier">port</span>
-  <span class="ruby-ivar">@server</span>=<span class="ruby-identifier">open_server</span>()
-  <span class="ruby-ivar">@mode</span>=<span class="ruby-identifier">get_mode</span>
-  <span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">get_addr</span>
-  <span class="ruby-ivar">@timeout</span>=<span class="ruby-identifier">get_timeout</span>
+  <span class="ruby-keyword">super</span> <span class="ruby-identifier">ip</span>,<span class="ruby-identifier">port</span>
+  <span class="ruby-ivar">@mode</span>=<span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@addr</span>=<span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@timeout</span>=<span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">read_init_volue</span>()
   
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -174,194 +215,10 @@
        </header>
 
     
-      <div id="method-i-get_addr" class="method-detail ">
+      <div id="method-i-addr-3D" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">get_addr</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="get_addr-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 58</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_addr</span>()
-  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-get_mode" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get_mode</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="get_mode-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_mode</span>()
-  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++mode&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-get_timeout" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get_timeout</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="get_timeout-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 66</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_timeout</span>()
-  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++timeout&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>  
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-open_server" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">open_server</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="open_server-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 16</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_server</span>()
-  
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-value">2</span>) <span class="ruby-keyword">do</span>
-       <span class="ruby-keyword">return</span> <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@ip</span>,<span class="ruby-ivar">@port</span>)
-    <span class="ruby-keyword">end</span>
-    
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> 
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;can&#39;t connect server&quot;</span>
-    
-  <span class="ruby-keyword">end</span>
-  
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-read" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">read</span><span
-            class="method-args">(timeout=2)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="read-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read</span>(<span class="ruby-identifier">timeout</span>=<span class="ruby-value">2</span>)
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword">do</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-ivar">@server</span>.<span class="ruby-identifier">gets</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;*** Timeout %s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">timeout</span> 
-    
-  <span class="ruby-keyword">end</span>
-  
-  
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-set_addr" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">set_addr</span><span
+          <span class="method-name">addr=</span><span
             class="method-args">(addr)</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -371,16 +228,19 @@
 
         <div class="method-description">
           
-          
+          <p>def addr()</p>
+
+<pre>  @addr
+end</pre>
           
           
 
           
-          <div class="method-source-code" id="set_addr-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 61</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_addr</span>(<span class="ruby-identifier">addr</span>)
+          <div class="method-source-code" id="addr-3D-source">
+            <pre><span class="ruby-comment"># File gpib.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">addr=</span>(<span class="ruby-identifier">addr</span>)
   <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">get_addr</span>
+  <span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -392,10 +252,10 @@
       </div>
 
     
-      <div id="method-i-set_mode" class="method-detail ">
+      <div id="method-i-mode-3D" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">set_mode</span><span
+          <span class="method-name">mode=</span><span
             class="method-args">(mode)</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -405,16 +265,22 @@
 
         <div class="method-description">
           
-          
+          <p>def mode()</p>
+
+<pre>@mode</pre>
+
+<p>end</p>
           
           
 
           
-          <div class="method-source-code" id="set_mode-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 53</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_mode</span>(<span class="ruby-identifier">mode</span>)
-  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++mode &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">mode</span>.<span class="ruby-identifier">to_s</span> )
-  <span class="ruby-ivar">@mode</span>=<span class="ruby-identifier">get_mode</span>()
+          <div class="method-source-code" id="mode-3D-source">
+            <pre><span class="ruby-comment"># File gpib.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mode=</span>(<span class="ruby-identifier">mode</span>)
+  
+    <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++mode 1&quot;</span> ) <span class="ruby-keyword">if</span> <span class="ruby-identifier">mode</span><span class="ruby-operator">==</span><span class="ruby-value">:Device</span> 
+    <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++mode 0&quot;</span> ) <span class="ruby-keyword">if</span> <span class="ruby-identifier">mode</span><span class="ruby-operator">==</span><span class="ruby-value">:Controller</span>
+    <span class="ruby-ivar">@mode</span>   =  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++mode&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span><span class="ruby-operator">==</span><span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-value">:Controller</span> <span class="ruby-operator">:</span> <span class="ruby-value">:Device</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -426,10 +292,45 @@
       </div>
 
     
-      <div id="method-i-set_timeout" class="method-detail ">
+      <div id="method-i-read_init_volue" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">set_timeout</span><span
+          <span class="method-name">read_init_volue</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read_init_volue-source">
+            <pre><span class="ruby-comment"># File gpib.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_init_volue</span>
+  <span class="ruby-ivar">@mode</span>   =  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++mode&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span><span class="ruby-operator">==</span><span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-value">:Controller</span> <span class="ruby-operator">:</span> <span class="ruby-value">:Device</span>
+  <span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-ivar">@timeout</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++read_tmo_ms&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>  
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-timeout-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">timeout=</span><span
             class="method-args">(ms)</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -439,52 +340,19 @@
 
         <div class="method-description">
           
-          
+          <p>def timeout()</p>
+
+<pre>  @timeout
+end</pre>
           
           
 
           
-          <div class="method-source-code" id="set_timeout-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 69</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_timeout</span>(<span class="ruby-identifier">ms</span>)
-  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++timeout &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ms</span>.<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-ivar">@timeout</span>=<span class="ruby-identifier">slef</span>.<span class="ruby-identifier">get_timeout</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-write" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">write</span><span
-            class="method-args">(cmd,ret=false,timeout=2)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>gpib  write command</p>
-          
-          
-
-          
-          <div class="method-source-code" id="write-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">cmd</span>,<span class="ruby-identifier">ret</span>=<span class="ruby-keyword">false</span>,<span class="ruby-identifier">timeout</span>=<span class="ruby-value">2</span>)
-  
-    <span class="ruby-ivar">@server</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">cmd</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">read</span>().<span class="ruby-identifier">chomp</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ret</span> 
-
+          <div class="method-source-code" id="timeout-3D-source">
+            <pre><span class="ruby-comment"># File gpib.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">timeout=</span>(<span class="ruby-identifier">ms</span>)
+  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++read_tmo_ms &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ms</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-ivar">@timeout</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++read_tmo_ms&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>  
 <span class="ruby-keyword">end</span></pre>
           </div>
           

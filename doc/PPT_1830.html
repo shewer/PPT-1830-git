@@ -83,6 +83,8 @@
     
     <li ><a href="#method-i-get_allch">#get_allch</a>
     
+    <li ><a href="#method-i-get_chan">#get_chan</a>
+    
     <li ><a href="#method-i-get_curr">#get_curr</a>
     
     <li ><a href="#method-i-get_volt">#get_volt</a>
@@ -102,6 +104,8 @@
     <li ><a href="#method-i-recall-3D">#recall=</a>
     
     <li ><a href="#method-i-save_recall-3D">#save_recall=</a>
+    
+    <li ><a href="#method-i-set_chan">#set_chan</a>
     
     <li ><a href="#method-i-set_curr">#set_curr</a>
     
@@ -143,6 +147,40 @@
     
 
     
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-addr" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">addr</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-gpib" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">gpib</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
 
     
      <section id="public-class-5Buntitled-5D-method-details" class="method-section">
@@ -170,11 +208,11 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 3</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">gpib</span>,<span class="ruby-identifier">addr</span>)
   <span class="ruby-ivar">@gpib</span>=<span class="ruby-identifier">gpib</span>
   <span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">addr</span>  
-  <span class="ruby-ivar">@channel</span>=<span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@channel</span>=<span class="ruby-identifier">get_chan</span>()
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -213,13 +251,8 @@
 
           
           <div class="method-source-code" id="channel-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>()
-  <span class="ruby-comment">#set_gpib_addr</span>
-  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;chan?&quot;</span>)
-  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>().<span class="ruby-identifier">to_i</span>
-  
-<span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>(); <span class="ruby-ivar">@channel</span> ; <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -234,7 +267,7 @@
         
         <div class="method-heading">
           <span class="method-name">channel=</span><span
-            class="method-args">(ch)</span>
+            class="method-args">(ch )</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -249,15 +282,8 @@
 
           
           <div class="method-source-code" id="channel-3D-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel=</span> (<span class="ruby-identifier">ch</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;channel 1~3&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">ch</span><span class="ruby-operator">&lt;=</span><span class="ruby-value">3</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ch</span> <span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
-  <span class="ruby-comment">#set_gpib_addr</span>
-  <span class="ruby-comment">#return ch if channel()== ch</span>
-  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;chan &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ch</span>.<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-ivar">@channel</span>=<span class="ruby-identifier">channel</span>()
-
-<span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel=</span>(<span class="ruby-identifier">ch</span> ); <span class="ruby-identifier">set_chan</span> <span class="ruby-identifier">ch</span>  ; <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -287,7 +313,7 @@
 
           
           <div class="method-source-code" id="chk_gpib_addr-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 36</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">chk_gpib_addr</span>()
   <span class="ruby-ivar">@addr</span><span class="ruby-operator">==</span><span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">addr</span>
    
@@ -321,7 +347,7 @@
 
           
           <div class="method-source-code" id="get_allch-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 89</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 112</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_allch</span>()
   <span class="ruby-identifier">setch</span>=[]
   (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">3</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
@@ -330,6 +356,42 @@
  
     }
   <span class="ruby-identifier">setch</span>
+  
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_chan" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_chan</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_chan-source">
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_chan</span>()
+  <span class="ruby-identifier">set_gpib_addr</span>
+  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;chan?&quot;</span>)
+  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>().<span class="ruby-identifier">to_i</span>
   
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -361,8 +423,9 @@
 
           
           <div class="method-source-code" id="get_curr-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 65</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_curr</span>(<span class="ruby-identifier">channel</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">channel</span>
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;curr?&quot;</span>)
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>().<span class="ruby-identifier">to_f</span>
@@ -396,8 +459,9 @@
 
           
           <div class="method-source-code" id="get_volt-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 60</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_volt</span>(<span class="ruby-identifier">chan</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">chan</span>
    <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;volt?&quot;</span>)
    <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>().<span class="ruby-identifier">to_f</span>
@@ -431,8 +495,9 @@
 
           
           <div class="method-source-code" id="get_voltp-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 71</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_voltp</span>(<span class="ruby-identifier">chan</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">chan</span>
    <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;volt:prot?&quot;</span>)
    <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>().<span class="ruby-identifier">to_f</span>
@@ -466,7 +531,7 @@
 
           
           <div class="method-source-code" id="getinfo-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 119</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 142</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">getinfo</span>()
 
    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Device: %s &quot;</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;*idn?&quot;</span>,<span class="ruby-keyword">true</span>)
@@ -513,7 +578,7 @@
 
           
           <div class="method-source-code" id="mes_allch-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 99</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mes_allch</span>()
   <span class="ruby-identifier">mesch</span>=[]
   (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">3</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
@@ -553,8 +618,9 @@
 
           
           <div class="method-source-code" id="mes_curr-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 83</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 105</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mes_curr</span>(<span class="ruby-identifier">channel</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">channel</span>
    <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;meas:curr?&quot;</span>)
    <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>().<span class="ruby-identifier">to_f</span>
@@ -588,8 +654,9 @@
 
           
           <div class="method-source-code" id="mes_volt-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 77</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 98</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mes_volt</span>(<span class="ruby-identifier">channel</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">channel</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">channel</span>()
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;meas:volt?&quot;</span>)
@@ -624,7 +691,7 @@
 
           
           <div class="method-source-code" id="recall-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 112</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">recall</span>()
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;*rclL&quot;</span>)
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">read</span>()
@@ -658,7 +725,7 @@
 
           
           <div class="method-source-code" id="recall-3D-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 109</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">recall=</span>(<span class="ruby-identifier">rno</span>)
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;*rcl &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">rno</span>.<span class="ruby-identifier">to_s</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -691,9 +758,47 @@
 
           
           <div class="method-source-code" id="save_recall-3D-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 116</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save_recall=</span>(<span class="ruby-identifier">rno</span>)
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;*sav &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">rno</span>.<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_chan" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_chan</span><span
+            class="method-args">(ch)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_chan-source">
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_chan</span>(<span class="ruby-identifier">ch</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;channel 1~3&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">ch</span><span class="ruby-operator">&lt;=</span><span class="ruby-value">3</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ch</span> <span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
+  <span class="ruby-comment">#return ch if channel()== ch</span>
+  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;chan &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ch</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-ivar">@channel</span>=<span class="ruby-identifier">get_chan</span>()
+
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -724,8 +829,9 @@
 
           
           <div class="method-source-code" id="set_curr-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 48</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_curr</span>(<span class="ruby-identifier">curr</span>,<span class="ruby-identifier">chan</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">chan</span>
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;curr &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">curr</span>.<span class="ruby-identifier">to_s</span>)
   
@@ -759,9 +865,10 @@
 
           
           <div class="method-source-code" id="set_gpib_addr-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 40</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_gpib_addr</span>()
-  <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">addr</span>=<span class="ruby-ivar">@addr</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">chk_gpib_addr</span>()
+   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">addr</span>= <span class="ruby-ivar">@addr</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">chk_gpib_addr</span>   
+   <span class="ruby-keyword">return</span>  <span class="ruby-ivar">@addr</span>= <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">addr</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -792,8 +899,9 @@
 
           
           <div class="method-source-code" id="set_volt-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 43</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_volt</span>(<span class="ruby-identifier">vol</span>,<span class="ruby-identifier">chan</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">chan</span>
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;volt &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vol</span>.<span class="ruby-identifier">to_s</span>)
   
@@ -827,8 +935,9 @@
 
           
           <div class="method-source-code" id="set_voltp-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 54</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_voltp</span>(<span class="ruby-identifier">vol</span>,<span class="ruby-identifier">chan</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
+  <span class="ruby-identifier">set_gpib_addr</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>=<span class="ruby-identifier">chan</span>
   <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;volt:prot &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">vol</span>.<span class="ruby-identifier">to_s</span>)
   
@@ -862,7 +971,7 @@
 
           
           <div class="method-source-code" id="test-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 24</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test</span>(<span class="ruby-identifier">a</span>=<span class="ruby-ivar">@channel</span>)
   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
@@ -895,7 +1004,7 @@
 
           
           <div class="method-source-code" id="test1-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 27</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test1</span>(<span class="ruby-identifier">a</span>=<span class="ruby-keyword">self</span>.<span class="ruby-identifier">channel</span>)
   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
@@ -928,12 +1037,12 @@
 
           
           <div class="method-source-code" id="turn-3D-source">
-            <pre><span class="ruby-comment"># File ppt1830.rb, line 16</span>
+            <pre><span class="ruby-comment"># File ppt1830.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">turn=</span>(<span class="ruby-identifier">flag</span>)
-  
+  <span class="ruby-identifier">set_gpib_addr</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;outp:stat 1&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">flag</span><span class="ruby-operator">==</span><span class="ruby-value">:On</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@gpib</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;outp:stat 0&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">flag</span><span class="ruby-operator">==</span><span class="ruby-value">:Off</span>
-  
+       
 
   
 <span class="ruby-keyword">end</span></pre>
