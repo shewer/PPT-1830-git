@@ -32,15 +32,20 @@ class ModBus_Package
   def unpack(str,chk_sum=true)
     raise "String Size ERROR" unless str.size==8
     
-    ar=str.unpack("C3A4C")
+    ar=str.unpack("C3a4C")
      ar[0] = (ar[0]== 0x55) ? :send : :return
     sum=ar.pop
     if chk_sum && ar[0]==:return
       raise "String checksum error" unless  chk_chksum(str[0,7],sum)
     end
-
-    
     return ar
+  end
+  
+    def pack()
+    [HEAD_CODE[@mode],@addr,@cmd,@data,chksum()].pack("C3a4C")
+  end    
+  def to_s()
+      pack()
   end
   
   
@@ -51,17 +56,12 @@ class ModBus_Package
   end
   def chksum()  # array to 7Bytes string
     sum=get_chksum(
-        [HEAD_CODE[@mode],@addr,@cmd,@data].pack("C3A4") )
+        [HEAD_CODE[@mode],@addr,@cmd,@data].pack("C3a4") )
   end
   
   
   
-  def pack()
-    [HEAD_CODE[@mode],@addr,@cmd,@data,chksum()].pack("C3A4C")
-  end    
-  def self.to_s()
-      pack()
-  end
+
   
   def chk_chksum(stri,sum) # for 8 bytes  str[0,7], str[7] 
     sum == get_chksum(stri)

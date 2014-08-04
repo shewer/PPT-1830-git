@@ -71,7 +71,7 @@
 
 require "./ioboard88.rb"
 
-IO_SERVER="192.168.1.231"
+IO_SERVER="192.168.3.231"
 IO_PORT=6000
 GPIB_SERVER="192.168.3.221"
 GPIB_PORT=1234
@@ -81,6 +81,22 @@ iob=Ioboard88.new(rs485,1)
 
 iob.delay_on(1,500)
 p rs485
+
+def test(iob,rs485,time)
+(1..65000).each {|x| ret=iob.relay_set_byte x%256  ;sleep time ;      p ret.data
+   if rs485.remote_status.size >0
+     remote_ret=rs485.remote_status.pop 
+     p remote_ret.data
+
+     p cmd= remote_ret.data.bytes[0]
+     time = cmd / 10.0
+     p time
+     throw :exit if  cmd== 15
+   end
+   }
+end
+
+catch(:exit) { test iob,rs485 ,1}
 
 
 
