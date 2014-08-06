@@ -58,9 +58,9 @@
 # 
 # require './controller.rb'
 # require './test_proc.rb'
-# require './rs485io.rb'
-# require './testunit.rb'
-# require './ppt1830.rb'
+ require './rs485io.rb'
+ require './testunit.rb'
+ require './ppt1830.rb'
 # require './ioboard88.rb'
 # tproc=[[3.59, false], [3.63, true], [3.53, true], [3.5, false]]
 # a=Controller.new
@@ -84,20 +84,36 @@ p rs485
 
 def test(iob,rs485,time)
 (1..65000).each {|x| ret=iob.relay_set_byte x%256  ;sleep time ;      p ret.data
-   if rs485.remote_status.size >0
-     remote_ret=rs485.remote_status.pop 
-     p remote_ret.data
-
-     p cmd= remote_ret.data.bytes[0]
-     time = cmd / 10.0
+   cmd=remote_cmd rs485
+   if cmd >0
+     
+     time /= 2.00 if cmd==1 
+	 time *= 2.00 if cmd==2 
+	 time = cmd *0.1 if cmd >2 
      p time
      throw :exit if  cmd== 15
    end
    }
 end
 
-catch(:exit) { test iob,rs485 ,1}
+def remote_cmd(rs485)
+	return 0 if rs485.remote_status.size==0
+    remote_ret=rs485.remote_status.pop 
+     p remote_ret.data
 
+     p cmd= remote_ret.data.unpack("C4")[0]
+end
+loop {
+sleep 0.1
+iob.get_io_status()
+
+tt=remote_cmd(rs485)
+p tt
+catch(:exit) { test iob,rs485 , tt* 0.1 }   if tt > 00
+
+
+
+}
 
 
 # loop {
