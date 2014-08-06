@@ -36,10 +36,17 @@ class Gpib < Ioport
   #     @addr
   #   end
   
-  def addr=(addr)
-    write("++addr " + addr.to_s)
-    @addr=write("++addr",true).to_i
-  end
+  def set_addr(addr)
+    
+    # begin 
+    #    send("++addr " + addr.to_s)
+    #    retry  unless (@addr=write("++addr",true).to_i)== addr
+    #  
+    #  
+    #  
+    #  end 
+    #  @addr
+   end
 
   def addr() ; @addr ;end
   def addr=(addr) ; set_addr(addr)  ; end
@@ -50,7 +57,7 @@ class Gpib < Ioport
   #     
   #     @timeout
   #   end
-  #   
+  #   set GPIB/TCPIP read time out 
   def timeout=(ms)
     write("++read_tmo_ms " + ms.to_s)
     @timeout=write("++read_tmo_ms",true).to_i  
