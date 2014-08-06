@@ -42,7 +42,7 @@ class Ioboard88
           
           output_byte %= 256
           data= [0,0,0,output_byte].pack("C4")
-          send(data,SET_RELAY)
+          cmd_send(data,SET_RELAY)
           # sp=ModBus_Package.new(@addr,SET_RELAY,data) # set :C0 :T0
           # return  @server.write(sp)
 
@@ -53,14 +53,17 @@ class Ioboard88
     end
     
   end
-  def send(data,cmd)
+  def cmd_send(data,cmd)
     sa=ModBus_Package.new(@addr,cmd,data)
-    @io_status=@server.write(sa)
+    p sa.to_s
+    p ModBus_Package.new( sa.to_s)
+    p @server.send(sa.to_s)
+    @io_status=    ModBus_Package.new(          @server.send(sa.to_s)  )
   end
   
   def get_io_status()
     data=[0,0,0,0].pack("C4")
-    send(data,GET_STATUS)
+    cmd_send(data,GET_STATUS)
 
   end
   
@@ -72,7 +75,7 @@ class Ioboard88
   
   def delay_on(bit,ms)
     data=  delay_time(ms) + (bit%17).chr   # 0 off:  bit 1~16
-    send(data,DELAY_ON)
+    cmd_send(data,DELAY_ON)
     # sa=ModBus_Package.new(@addr,DELAY_ON,data)
     # @io_status=@server.write(sa)   
     
@@ -90,7 +93,7 @@ class Ioboard88
     #  @io_status=  io_status.size==8 ? io_status : nil
     #  
     data=  delay_time(ms) + (bit%17).chr   # 0 off:  bit 1~16
-    send(data,DELAY_OFF)
+    cmd_send(data,DELAY_OFF)
     # sa=ModBus_Package.new(@addr,DELAY_OFF,data)
     # @io_status=@server.write(sa)   
   
@@ -99,14 +102,14 @@ class Ioboard88
   
   def relay_on(bit)
     data="\x00\x00\x00" + (bit%17).chr
-    send(data,BIT_ON)
+    cmd_send(data,BIT_ON)
     # sa=ModBus_Package.new(@addr,BIT_ON,data)
     # @io_status=@server.write(sa)   
     
   end
   def relay_off(bit)
     data="\x00\x00\x00" + (bit%17).chr
-    send(data,BIT_OFF)
+    cmd_send(data,BIT_OFF)
     # sa=ModBus_Package.new(@addr,BIT_OFF,data)
     # @io_status=@server.write(sa)   
     

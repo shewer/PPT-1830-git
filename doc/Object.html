@@ -79,6 +79,10 @@
     
     <li ><a href="#method-i-method_missing">#method_missing</a>
     
+    <li ><a href="#method-i-remote_cmd">#remote_cmd</a>
+    
+    <li ><a href="#method-i-test">#test</a>
+    
     <li ><a href="#method-i-tt">#tt</a>
     
   </ul>
@@ -300,6 +304,86 @@
             <pre><span class="ruby-comment"># File aa.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">meth</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
         
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-remote_cmd" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remote_cmd</span><span
+            class="method-args">(rs485)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="remote_cmd-source">
+            <pre><span class="ruby-comment"># File testt.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remote_cmd</span>(<span class="ruby-identifier">rs485</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">rs485</span>.<span class="ruby-identifier">remote_status</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+    <span class="ruby-identifier">remote_ret</span>=<span class="ruby-identifier">rs485</span>.<span class="ruby-identifier">remote_status</span>.<span class="ruby-identifier">pop</span> 
+     <span class="ruby-identifier">p</span> <span class="ruby-identifier">remote_ret</span>.<span class="ruby-identifier">data</span>
+
+     <span class="ruby-identifier">p</span> <span class="ruby-identifier">cmd</span>= <span class="ruby-identifier">remote_ret</span>.<span class="ruby-identifier">data</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&quot;C4&quot;</span>)[<span class="ruby-value">0</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test</span><span
+            class="method-args">(iob,rs485,time)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test-source">
+            <pre><span class="ruby-comment"># File testt.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test</span>(<span class="ruby-identifier">iob</span>,<span class="ruby-identifier">rs485</span>,<span class="ruby-identifier">time</span>)
+(<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">65000</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ret</span>=<span class="ruby-identifier">iob</span>.<span class="ruby-identifier">relay_set_byte</span> <span class="ruby-identifier">x</span><span class="ruby-operator">%</span><span class="ruby-value">256</span>  ;<span class="ruby-identifier">sleep</span> <span class="ruby-identifier">time</span> ;      <span class="ruby-identifier">p</span> <span class="ruby-identifier">ret</span>.<span class="ruby-identifier">data</span>
+   <span class="ruby-identifier">cmd</span>=<span class="ruby-identifier">remote_cmd</span> <span class="ruby-identifier">rs485</span>
+   <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+     
+     <span class="ruby-identifier">time</span> <span class="ruby-operator">/=</span> <span class="ruby-value">2.00</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmd</span><span class="ruby-operator">==</span><span class="ruby-value">1</span> 
+         <span class="ruby-identifier">time</span> <span class="ruby-operator">*=</span> <span class="ruby-value">2.00</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmd</span><span class="ruby-operator">==</span><span class="ruby-value">2</span> 
+         <span class="ruby-identifier">time</span> = <span class="ruby-identifier">cmd</span> <span class="ruby-operator">*</span><span class="ruby-value">0.1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&gt;</span><span class="ruby-value">2</span> 
+     <span class="ruby-identifier">p</span> <span class="ruby-identifier">time</span>
+     <span class="ruby-identifier">throw</span> <span class="ruby-value">:exit</span> <span class="ruby-keyword">if</span>  <span class="ruby-identifier">cmd</span><span class="ruby-operator">==</span> <span class="ruby-value">15</span>
+   <span class="ruby-keyword">end</span>
+   }
 <span class="ruby-keyword">end</span></pre>
           </div>
           

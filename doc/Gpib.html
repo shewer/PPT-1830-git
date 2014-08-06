@@ -81,6 +81,8 @@
     
     <li ><a href="#method-i-read_init_volue">#read_init_volue</a>
     
+    <li ><a href="#method-i-set_addr">#set_addr</a>
+    
     <li ><a href="#method-i-timeout-3D">#timeout=</a>
     
   </ul>
@@ -228,20 +230,14 @@
 
         <div class="method-description">
           
-          <p>def addr()</p>
-
-<pre>  @addr
-end</pre>
+          
           
           
 
           
           <div class="method-source-code" id="addr-3D-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 39</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">addr=</span>(<span class="ruby-identifier">addr</span>)
-  <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File gpib.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">addr=</span>(<span class="ruby-identifier">addr</span>) ; <span class="ruby-identifier">set_addr</span>(<span class="ruby-identifier">addr</span>)  ; <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -327,6 +323,46 @@ end</pre>
       </div>
 
     
+      <div id="method-i-set_addr" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_addr</span><span
+            class="method-args">(addr)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>def addr()</p>
+
+<pre>  @addr
+end</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="set_addr-source">
+            <pre><span class="ruby-comment"># File gpib.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_addr</span>(<span class="ruby-identifier">addr</span>)
+  <span class="ruby-keyword">begin</span> 
+    <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">to_s</span>)
+    <span class="ruby-keyword">retry</span>  <span class="ruby-keyword">unless</span> (<span class="ruby-ivar">@addr</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++addr&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>)<span class="ruby-operator">==</span> <span class="ruby-identifier">addr</span>
+  <span class="ruby-keyword">end</span> 
+  <span class="ruby-ivar">@addr</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-i-timeout-3D" class="method-detail ">
         
         <div class="method-heading">
@@ -343,13 +379,14 @@ end</pre>
           <p>def timeout()</p>
 
 <pre>  @timeout
-end</pre>
+end
+set GPIB/TCPIP read time out</pre>
           
           
 
           
           <div class="method-source-code" id="timeout-3D-source">
-            <pre><span class="ruby-comment"># File gpib.rb, line 54</span>
+            <pre><span class="ruby-comment"># File gpib.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">timeout=</span>(<span class="ruby-identifier">ms</span>)
   <span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++read_tmo_ms &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ms</span>.<span class="ruby-identifier">to_s</span>)
   <span class="ruby-ivar">@timeout</span>=<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;++read_tmo_ms&quot;</span>,<span class="ruby-keyword">true</span>).<span class="ruby-identifier">to_i</span>  
