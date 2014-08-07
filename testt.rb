@@ -58,9 +58,9 @@
 # 
 # require './controller.rb'
 # require './test_proc.rb'
- require './rs485io.rb'
- require './testunit.rb'
- require './ppt1830.rb'
+# require './rs485io.rb'
+# require './testunit.rb'
+# require './ppt1830.rb'
 # require './ioboard88.rb'
 # tproc=[[3.59, false], [3.63, true], [3.53, true], [3.5, false]]
 # a=Controller.new

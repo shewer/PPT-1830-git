@@ -55,7 +55,7 @@ class Ioboard88
   end
   def send(data,cmd)
     sa=ModBus_Package.new(@addr,cmd,data)
-    @io_status=@server.write(sa)
+    @io_status=@server.send_modbus(sa)
   end
   
   def get_io_status()
